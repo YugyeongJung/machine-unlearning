@@ -44,11 +44,11 @@ export default function Home() {
             body: JSON.stringify({"fileName": fileName})
         }
 
-        const res = await fetch("http://0.0.0.0:5000/fileName", reqOptions);
-        const resJson = await res.json();
+        // const res = await fetch("http://localhost:5000/fileName", reqOptions);
+        // const resJson = await res.json();
         fileCount = fileCount + 1;
         setFileCount(fileCount)
-        console.log(resJson['fileName'])
+        // console.log(resJson['fileName'])
     }
 
     const InfoPopupHandler = () => {
@@ -56,7 +56,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        // fetch("http://0.0.0.0:5000/users").then(
+        // fetch("http://localhost:5000/users").then(
         //     res => res.json()
         //   ).then(
         //     data => console.log(data)
