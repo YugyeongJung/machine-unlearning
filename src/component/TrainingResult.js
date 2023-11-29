@@ -10,6 +10,7 @@ import original from '../images/original.png'
 import changed from '../images/changed.png'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from "react-router-dom";
+import image1 from '../images/image1.png'
 
 
 export default function TrainingResult() {
@@ -34,11 +35,11 @@ export default function TrainingResult() {
             </div>
             <Stack direction = "row" justifyContent = "center" style ={{marginTop: 40}}>
                 <Stack>
-                <img src = {original} style = {{width: 450}}></img>
+                <img src = {original} style = {{width: 470, height: 450}}></img>
                 <p style = {{fontFamily: "Roboto", fontSize: 20, fontWeight: 10}}>* Your original image</p>
                 </Stack>
                 <Stack>
-                <img src = {changed} style = {{width: 450, marginLeft: 50}} ></img>
+                <img src = {image1} style = {{width: 450, marginLeft: 50}} ></img>
                 <p style = {{fontFamily: "Roboto", fontSize: 20, fontWeight: 10}}>* How your image looks like inside AI model</p>
                 </Stack>
             </Stack>
