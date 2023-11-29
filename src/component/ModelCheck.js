@@ -18,13 +18,17 @@ export default function ModelCheck(){
     const InfoPopupHandler = () => {
         setPopup(true)
     }
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
     
     useEffect(() => {
         const ModelCheck = async () => {
-            const res = await fetch("http://localhost:5000/ModelCheck");
-            const data = await res.json();
-            setResult(data)
-            console.log(data)
+            // const res = await fetch("http://localhost:5000/ModelCheck");
+            // const data = await res.json();
+            // setResult(data)
+            // console.log(data)
+            await delay(5000);
+            setResult('tempdata')
         }
         ModelCheck();
         
