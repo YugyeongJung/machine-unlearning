@@ -33,38 +33,27 @@ export default function Home() {
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         setFileName(file.name);
-        postFileName(fileName);
-
+        setFileCount(1)
+        // postFileName(file.name);
     };
 
-    const postFileName = async (fileName) => {
-        const reqOptions = {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({"fileName": fileName})
-        }
+    // const postFileName = async (fileName) => {
+    //     const reqOptions = {
+    //         method: 'POST',
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({"fileName": fileName})
+    //     }
 
-        // const res = await fetch("http://localhost:5000/fileName", reqOptions);
-        // const resJson = await res.json();
-        fileCount = fileCount + 1;
-        setFileCount(fileCount)
-        // console.log(resJson['fileName'])
-    }
+    //     const res = await fetch("http://localhost:5000/fileName", reqOptions);
+    //     const resJson = await res.json();
+    //     fileCount = fileCount + 1;
+    //     setFileCount(fileCount)
+    //     console.log(resJson)
+    // }
 
     const InfoPopupHandler = () => {
         setPopup(true)
     }
-
-    useEffect(() => {
-        // fetch("http://localhost:5000/users").then(
-        //     res => res.json()
-        //   ).then(
-        //     data => console.log(data)
-        //   )
-        //   console.log('hello')
-        console.log(fileCount)
-        // navigate("/ModelCheck")
-    }, [fileCount])
     
     return(
         <div className = 'wrapper'>
@@ -102,7 +91,7 @@ export default function Home() {
                         endIcon={<ArrowForwardIcon style={{marginLeft: 240, fontSize: 50}}/>}
                         sx = {{width: 600, height: 80, borderRadius: "50px", justifyContent: "flex-start", 
                             fontSize: "1.5rem", fontFamily: "Roboto", textTransform: 'none', fontWeight: "200px", marginTop: "-15px"}}
-                        onClick = {() => navigate("/ModelCheck")}
+                        onClick = {() => navigate("/ModelCheck/"+fileName)}
                         >
                     Check Model
                 </Button>
