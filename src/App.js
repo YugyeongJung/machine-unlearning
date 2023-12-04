@@ -14,10 +14,10 @@ function App() {
 				<Routes>
 					<Route exact path="/" element={<Navigate to="/Home" />} />
 					<Route path="/Home" element={<Home />} />
-          <Route path="/ModelCheck" element={<ModelCheck />} />
-          <Route path="/TrainingResult" element={<TrainingResult/>} />
-          <Route path="/UnlearningProgress" element={<UnlearningProgress/>}/>
-          <Route path="/UnlearningResult" element={<UnlearningResult/>}/>
+          <Route path="/ModelCheck/:filename" element={<ModelCheck />} />
+          <Route path="/TrainingResult/:filename/:mia" element={<TrainingResult/>} />
+          <Route path="/UnlearningProgress/:filename/:mia" element={<UnlearningProgress/>}/>
+          <Route path="/UnlearningResult/:filename/:mia/:unlearnmia/:time/:date" element={<UnlearningResult/>}/>
 				</Routes>
 			</BrowserRouter>
 		</div>
