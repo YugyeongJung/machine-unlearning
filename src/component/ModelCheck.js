@@ -8,29 +8,54 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import stage1 from '../icons/stage1.png'
+import HelpIcon from '@mui/icons-material/Help';
+import Help from './Help'
 
 
 export default function ModelCheck(){
     const [popup, setPopup] = useState(false)
     const [result, setResult] = useState(null);
     const navigate = useNavigate();
+    var [fileCount, setFileCount] = useState(0);
+    const [helpPopup, setHelpPopup] = useState(false)
+    const URLsplit = window.document.URL.split('/');
+	const fileName = URLsplit[URLsplit.length - 1];
+
     const InfoPopupHandler = () => {
         setPopup(true)
     }
+    const HelpPopupHandler = () => {
+        setHelpPopup(true)
+    }
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    
-    useEffect(() => {
-        const ModelCheck = async () => {
-            // const res = await fetch("http://localhost:5000/ModelCheck");
-            // const data = await res.json();
-            // setResult(data)
-            // console.log(data)
-            await delay(5000);
-            setResult('tempdata')
+    const postFileName = async (fileName) => {
+        const reqOptions = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({"fileName": fileName})
         }
-        ModelCheck();
+
+        const res = await fetch("http://localhost:5000/ModelCheck", reqOptions);
+        const resJson = await res.json();
+        fileCount = fileCount + 1;
+        setFileCount(fileCount)
+        setResult(resJson['original_mia']['MIA'])
+        console.log(resJson['original_mia']['MIA'])
+    }
+
+    useEffect(() => {
+        // const ModelCheck = async () => {
+        //     const res = await fetch("http://localhost:5000/ModelCheck");
+        //     const data = await res.json();
+        //     // setResult(data)
+        //     console.log(data)
+        //     console.log('done')
+        //     setResult('tempdata')
+        // }
+        // ModelCheck();
+        postFileName(fileName)
         
     })
 
@@ -44,9 +69,10 @@ export default function ModelCheck(){
                 </IconButton>
             </Stack>
             <div>
-                <h1 style  = {{fontSize: 60, fontFamily: "Roboto", color: "#247AFC",  textAlign: "left", marginLeft: 120, marginTop: -10}}>
+                {/* <h1 style  = {{fontSize: 60, fontFamily: "Roboto", color: "#247AFC",  textAlign: "left", marginLeft: 120, marginTop: -10}}>
                     Checking Model
-                </h1>
+                </h1> */}
+                <img src={stage1} />
                     { (! result)
                     ?
                     <Box sx={{ display: 'flex', justifyContent: "center", marginTop: 10}}>
@@ -57,7 +83,7 @@ export default function ModelCheck(){
                         endIcon={<ArrowForwardIcon style={{marginLeft: 300, fontSize: 50}}/>}
                         sx = {{width: 600, height: 80, borderRadius: "50px", justifyContent: "flex-start", 
                             fontSize: "1.5rem", fontFamily: "Roboto", textTransform: 'none', fontWeight: "200px", marginTop: 10}}
-                        onClick = {() => navigate("/TrainingResult")}
+                        onClick = {() => navigate("/TrainingResult/" + fileName + '/' + result)}
                         >
                         <h3 style = {{marginLeft: 15}}>
                             Check Result
@@ -69,8 +95,13 @@ export default function ModelCheck(){
                 Checking if your image has been trained... 
                 </h3>
                 <div style = {{display: 'flex', justifyContent: "center", marginTop: -10}}>
-                    <Box component="section" sx={{ p: 1, border: '1px dashed grey', width: 500, fontSize: 25}}>
-                        Check Method: Membership Inference
+                    <Box component="section" sx={{ p: 1, border: '1px dashed grey', width: 600, fontSize: 25}}>
+                        Check Method: Membership Inference Attack
+                        <IconButton aria-label="delete" 
+                                                    sx = {{justifyContent: 'flex-end', marginTop: -1}}
+                                                    onClick = {() => HelpPopupHandler()}>
+                                            <HelpIcon/>
+                        </IconButton> 
                     </Box>
                 </div>
                 <hr style = {{marginTop: 150, width: 500, marginLeft: 50}}/>
@@ -80,6 +111,8 @@ export default function ModelCheck(){
                 </div>
             </div>
             {(popup) && <Info setPopup = {setPopup}/>}
+            {(helpPopup) && <Help setPopup = {setHelpPopup}/>}
+
         </div>
     )
 }
