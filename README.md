@@ -9,4 +9,4 @@
 ## Running
 1. npm start
 
-2. (open a new cmd, move to machine-unlearning), run server.py
+2. (open a new cmd, move to machine-unlearning), run app_cuda.py
